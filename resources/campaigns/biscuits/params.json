@@ -1,0 +1,7 @@
+{
+    "estimator": "gaussian_process_regression",
+    "filename": "train.csv",
+    "inputs": ["x"],
+    "outputs": ["y"],
+    "train_test_split": 10
+}
