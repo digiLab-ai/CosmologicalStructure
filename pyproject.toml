@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "formula_1"
+name = "cosmological_structure"
 version = "0.0.0"
-description = "Using twinLab to create a Formula 1 model"
-authors = ["Michelle Bieger <michelle@digilab.co.uk>"]
+description = "Using twinLab to create a cosmological structure model"
+authors = ["Alexander Mead <alexander@digilab.co.uk>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
