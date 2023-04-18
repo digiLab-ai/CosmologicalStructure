@@ -3,6 +3,7 @@ import os
 
 # Third-party imports
 import numpy as np
+from scipy.stats.qmc import scale, LatinHypercube
 import camb
 import hmcode
 import pandas as pd
@@ -54,6 +55,7 @@ vary_m_nu = False
 # Number of cosmologies
 ntrain = 1000
 neval = 50
+Latin_sampling = True
 
 # Learning choices
 power_ratio = True
@@ -85,32 +87,57 @@ column_names = [
 ]
 
 # Loop over train and eval data
-for n, file in zip([ntrain, neval], [train_file, eval_file]):
+for ival, (n, file) in enumerate(zip([ntrain, neval], [train_file, eval_file])):
 
-    # Loop over cosmologies
+    # Initialize dataframe
     df_columns = column_names+list(k_dict.keys())
     df = {name: [] for name in df_columns}
-    for icos in range(n):
 
-        # Cosmology
-        # TODO: Latin hypercube sampling?
-        Omega_c = rng.uniform(Omega_c_min, Omega_c_max) if vary_Omega_c \
-            else Omega_c_def
-        Omega_b = rng.uniform(Omega_b_min, Omega_b_max) if vary_Omega_b \
-            else Omega_b_def
-        Omega_k = rng.uniform(Omega_k_min, Omega_k_max) if vary_Omega_k \
-            else Omega_k_def
-        h = rng.uniform(h_min, h_max) if vary_h else h_def
-        ns = rng.uniform(ns_min, ns_max) if vary_ns else ns_def
-        sigma_8 = rng.uniform(sigma_8_min, sigma_8_max) if vary_sigma_8 \
-            else sigma_8_def
+    # Generate random samples
+    if Latin_sampling and ival == 0:
+        sampler = LatinHypercube(d=9, seed=seed, scramble=False)
+        samples = sampler.random(n)
+        lower_bounds = [Omega_c_min, Omega_b_min, Omega_k_min,
+                        h_min, ns_min, sigma_8_min, w0_min, wa_min, m_nu_min]
+        upper_bounds = [Omega_c_max, Omega_b_max, Omega_k_max,
+                        h_max, ns_max, sigma_8_max, w0_max, wa_max, m_nu_max]
+        samples = scale(samples, lower_bounds, upper_bounds)
+        Omega_cs = samples[:, 0]
+        Omega_bs = samples[:, 1]
+        Omega_ks = samples[:, 2]
+        hs = samples[:, 3]
+        nss = samples[:, 4]
+        sigma_8s = samples[:, 5]
+        w0s = samples[:, 6]
+        was = samples[:, 7]
+        m_nus = samples[:, 8]
+    else:
+        Omega_cs = rng.uniform(Omega_c_min, Omega_c_max, n)
+        Omega_bs = rng.uniform(Omega_b_min, Omega_b_max, n)
+        Omega_ks = rng.uniform(Omega_k_min, Omega_k_max, n)
+        hs = rng.uniform(h_min, h_max, n)
+        nss = rng.uniform(ns_min, ns_max, n)
+        sigma_8s = rng.uniform(sigma_8_min, sigma_8_max, n)
+        w0s = rng.uniform(w0_min, w0_max, n)
+        was = rng.uniform(wa_min, wa_max, n)
+        m_nus = rng.uniform(m_nu_min, m_nu_max, n)
+
+    # Loop over cosmologies and generate random samples
+    for icos in range(n):
+        Omega_c = Omega_cs[icos] if vary_Omega_c else Omega_c_def
+        Omega_b = Omega_bs[icos] if vary_Omega_b else Omega_b_def
+        Omega_k = Omega_ks[icos] if vary_Omega_k else Omega_k_def
+        h = hs[icos] if vary_h else h_def
+        ns = nss[icos] if vary_ns else ns_def
+        sigma_8 = sigma_8s[icos] if vary_sigma_8 else sigma_8_def
         As = 2e-9  # Needs to be set and corrected later
-        w0 = rng.uniform(w0_min, w0_max) if vary_w0 else w0_def
-        while True:  # Ensure that dark energy does not dominate the early universe
-            wa = rng.uniform(wa_min, wa_max) if vary_wa else wa_def
-            if w0+wa < 0.:
-                break
-        m_nu = rng.uniform(m_nu_min, m_nu_max) if vary_m_nu else m_nu_def
+        w0 = w0s[icos] if vary_w0 else w0_def
+        wa = was[icos] if vary_wa else wa_def
+        # while True:  # Ensure that dark energy does not dominate the early universe
+        #     wa = rng.uniform(wa_min, wa_max) if vary_wa else wa_def
+        #     if w0+wa < 0.:
+        #         break
+        m_nu = m_nus[icos] if vary_m_nu else m_nu_def
 
         # Add cosmological parameters to dataframe
         for z in zs:
