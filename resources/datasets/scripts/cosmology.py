@@ -44,20 +44,20 @@ m_nu_min, m_nu_max, m_nu_def = 0., 1., 0.
 vary_Omega_c = True
 vary_Omega_b = True
 vary_Omega_k = False
-vary_h = False
-vary_ns = False
+vary_h = True
+vary_ns = True
 vary_sigma_8 = True
 vary_w0 = False
 vary_wa = False
 vary_m_nu = False
 
 # Number of cosmologies
-ntrain = 100
-neval = 100
+ntrain = 1000
+neval = 50
 
 # Learning choices
 power_ratio = True
-power_log = False
+power_log = True
 
 ### ###
 
@@ -149,7 +149,7 @@ for n, file in zip([ntrain, neval], [train_file, eval_file]):
                     nonlinear=False).P(z, k)
                 Pk[iz, :] /= Pk_lin
         if power_log:
-            Pk = np.log10(Pk)
+            Pk = np.log(Pk)
         for iz, _ in enumerate(zs):
             for ik, _ in enumerate(k):
                 df[f"k{ik}"].append(Pk[iz, ik])
