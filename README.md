@@ -1,7 +1,7 @@
 # Cosmological structure
 
 <p align="center">
-    <img src="./resources/images/logo.svg" width="200" height="200" />
+    <img src="./resources/images/logo.svg" width="300" height="300" />
 </p>
 
 ![twinLab](./resources/images/twinLab_badge.svg)
