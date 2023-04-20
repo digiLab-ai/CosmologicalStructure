@@ -14,10 +14,9 @@ import pandas as pd
 datasets_dir = "resources/datasets"
 campaign_dir = "resources/campaigns/cosmology"
 
-# File paths
-grid_file = os.path.join(campaign_dir, "grid.csv")
-train_file = os.path.join(datasets_dir, "cosmology.csv")
-eval_file = os.path.join(campaign_dir, "eval.csv")
+grid_base = "grid"
+train_base = "cosmo"
+eval_base = "eval"
 
 # Wavenumbers
 kmin, kmax = 1e-3, 1e1  # Minimum and maximum wavenumber [h/Mpc]
@@ -53,15 +52,30 @@ vary_wa = False
 vary_m_nu = False
 
 # Number of cosmologies
-ntrain = 1000
+ntrain = 100
 neval = 50
-Latin_sampling = True
+Latin_sampling = False
 
 # Learning choices
 power_ratio = True
 power_log = True
 
 ### ###
+
+###  Calculations ###
+
+ratio_bit = '_ratio' if power_ratio else ''
+log_bit = '_log' if power_log else ''
+
+# File names
+grid_file = grid_base+'.csv'
+ratio_file = train_base+ratio_bit+log_bit+'.csv'
+eval_file = eval_base+ratio_bit+log_bit+'.csv'
+
+# File paths
+grid_file = os.path.join(campaign_dir, grid_file)
+train_file = os.path.join(datasets_dir, ratio_file)
+eval_file = os.path.join(campaign_dir, eval_file)
 
 # Seed random number generator
 rng = np.random.default_rng(seed=seed)
@@ -85,6 +99,8 @@ column_names = [
     "wa",
     "m_nu",
 ]
+
+### ###
 
 # Loop over train and eval data
 for ival, (n, file) in enumerate(zip([ntrain, neval], [train_file, eval_file])):
