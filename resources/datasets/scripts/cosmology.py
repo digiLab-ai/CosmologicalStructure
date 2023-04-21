@@ -53,12 +53,12 @@ vary_m_nu = False
 
 # Number of cosmologies
 ntrain = 100
-neval = 50
-Latin_sampling = False
+neval = 0
+Latin_sampling = True
 
 # Learning choices
-power_ratio = True
-power_log = True
+power_ratio = False
+power_log = False
 
 ### ###
 
@@ -66,15 +66,16 @@ power_log = True
 
 ratio_bit = '_ratio' if power_ratio else ''
 log_bit = '_log' if power_log else ''
+latin_bit = '_latin' if Latin_sampling else ''
 
 # File names
 grid_file = grid_base+'.csv'
-ratio_file = train_base+ratio_bit+log_bit+'.csv'
+train_file = train_base+latin_bit+ratio_bit+log_bit+'.csv'
 eval_file = eval_base+ratio_bit+log_bit+'.csv'
 
 # File paths
 grid_file = os.path.join(campaign_dir, grid_file)
-train_file = os.path.join(datasets_dir, ratio_file)
+train_file = os.path.join(datasets_dir, train_file)
 eval_file = os.path.join(campaign_dir, eval_file)
 
 # Seed random number generator
