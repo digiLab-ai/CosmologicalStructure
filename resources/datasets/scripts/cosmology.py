@@ -14,6 +14,7 @@ import pandas as pd
 datasets_dir = "resources/datasets"
 campaign_dir = "resources/campaigns/cosmology"
 
+# Filenames
 grid_base = "grid"
 train_base = "cosmo"
 eval_base = "eval"
