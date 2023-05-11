@@ -6,8 +6,8 @@ authors = ["Alexander Mead <alexander@digilab.co.uk>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.10"
-twinlab = "^1.0.1"
+python = ">=3.9,<3.12"
+twinlab = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
