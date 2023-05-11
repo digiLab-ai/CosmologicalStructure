@@ -29,6 +29,12 @@ Install the dependencies:
 poetry install
 ```
 
+Copy the `.env.example` file to `.env` 
+```shell
+cp .env.example .env
+```
+and fill out your `twinLab` login details in `.env`
+
 Run the [demo notebook](./demo.ipynb):
 ```shell
 poetry run jupyter notebook demo.ipynb
