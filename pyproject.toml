@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
-twinlab = "^1.1.0"
+twinlab = "^1.1.1"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
