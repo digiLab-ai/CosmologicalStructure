@@ -39,3 +39,6 @@ Run the [demo notebook](./demo.ipynb):
 ```shell
 poetry run jupyter notebook demo.ipynb
 ```
+## App
+
+You can visualise the results of the emulator here: [https://alexander-mead.github.io./universe.html](https://alexander-mead.github.io./universe.html)
