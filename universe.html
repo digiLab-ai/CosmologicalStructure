@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Universe | Alexander Mead</title>
+    <script type="text/javascript" src="scripts/universe.js"></script>
+    <!-- Mathjax with GitHub pages: https://stackoverflow.com/questions/34347818/using-mathjax-on-a-github-page -->
+    <script
+      type="text/javascript"
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <script>
+      MathJax = { tex: { inlineMath: [["$", "$"]] } };
+    </script>
+  </head>
+
+  <body>
+    <div class="intro">
+      <h3>Universe generator</h3>
+    </div>
+
+    <div>
+      <p>
+        This tool uses an emulator built using
+        <a href="https://github.com/digiLab-ai/twinLab-client">twinLab</a>
+        and trained on
+        <a href="https://github.com/alexander-mead/HMcode">HMcode</a>
+        predictions, which is then combined with a log-normal field model to
+        produce realisations of the matter distribution in the Universe. This is
+        a quick method for generating mock universes, which would otherwise
+        require expensive $N$-body simulations to create. Areas of higher matter
+        density are shown with brighter colours. The region of the Universe
+        shown is 500 megaparsecs across and one megaparsec deep, which would
+        contain approximately 250,000 galaxies and would take light more than
+        1.5 billion years to cross. Galaxies are clustered into huge
+        superclusters, which are joined by filaments and separated by voids.
+      </p>
+      <p>
+        You can change the density of both dark and normal (baryonic) matter,
+        the Hubble parameter, the primordial inflationary spectral index, and
+        the dark-energy equation-of-state. The other default values (including
+        the amplitude of the primordial spectrum) are the best-fitting values
+        from the
+        <a href="https://arxiv.org/abs/1807.06209">Planck (2018)</a> data
+        release.
+      </p>
+      <br />
+
+      <!-- <input id="Omega_m" type="number" value="0.3" /><br /><br /> -->
+      <label for="Omega_m">$\Omega_\mathrm{m}$; matter density:</label>
+      <select name="Omega_m" id="Omega_m">
+        <option value="0.2">0.2</option>
+        <option value="0.25">0.25</option>
+        <option value="0.3" selected>0.3</option>
+        <option value="0.35">0.35</option>
+        <option value="0.4">0.4</option></select
+      ><br /><br />
+
+      <!-- <input id="Omega_b" type="number" value="0.045" /><br /><br /> -->
+      <label for="Omega_b">$\Omega_\mathrm{b}$; baryon density: </label>
+      <select name="Omega_b" id="Omega_b">
+        <option value="0.025">0.025</option>
+        <option value="0.035">0.035</option>
+        <option value="0.045" selected>0.045</option>
+        <option value="0.055">0.055</option>
+        <option value="0.065">0.065</option></select
+      ><br /><br />
+
+      <!-- <input id="H_0" type="number" value="70.0" /><br /><br /> -->
+      <label for="H_0"
+        >$H_0$; Hubble parameter
+        [$\mathrm{km}\,\mathrm{s}^{-1}\,\mathrm{Mpc}^{-1}$]:
+      </label>
+      <select name="H_0" id="H_0">
+        <option value="50.">50</option>
+        <option value="60.">60</option>
+        <option value="70." selected>70</option>
+        <option value="80.">80</option>
+        <option value="90.">90</option></select
+      ><br /><br />
+
+      <!-- <input id="n_s" type="number" value="0.96" /><br /><br /> -->
+      <label for="n_s">$n_\mathrm{s}$; primordial spectral index: </label>
+      <select name="n_s" id="n_s">
+        <option value="0.92">0.92</option>
+        <option value="0.94">0.94</option>
+        <option value="0.96" selected>0.96</option>
+        <option value="0.98">0.98</option>
+        <option value="1.00">1.00</option></select
+      ><br /><br />
+
+      <!-- <input id="w_0" type="number" value="-1.0" /><br /><br /> -->
+      <label for="w_0">$w$; dark energy equation of state: </label>
+      <select name="w_0" id="w_0">
+        <option value="-0.7">-0.7</option>
+        <option value="-0.85">-0.85</option>
+        <option value="-1.0" selected>-1</option>
+        <option value="-1.15">-1.15</option>
+        <option value="-1.3">-1.3</option></select
+      ><br /><br />
+
+      <button id="clickButton" onClick="image()">Generate universe</button>
+
+      <div class="image-container">
+        <img id="image" src="resources/images/emulator.png" alt="Universe" />
+        <div id="spinner" class="spinner"></div>
+        <div id="overlay" class="overlay"></div>
+      </div>
+    </div>
+  </body>
+</html>
