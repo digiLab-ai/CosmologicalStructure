@@ -1,12 +1,13 @@
 # Cosmological structure
 
-<p align="center">
+<!-- <p align="center">
     <img src="./resources/images/density.png" width="800" height="200" />
-</p>
+</p> -->
+![image](./resources/images/density.png)
 
 ![digiLab](./resources/images/digiLab_badge.svg)
 ![twinLab](./resources/images/twinLab_badge.svg)
-[![slack](https://img.shields.io/badge/slack-@digilabglobal-purple.svg?logo=slack)](https://digilabglobal.slack.com)
+![slack](https://img.shields.io/badge/slack-@digilabglobal-purple.svg?logo=slack)](https://digilabglobal.slack.com)
 
 Here, we use `twinLab` to create an emulator for the statistical properties of the distribution of structure across the Universe.
 
@@ -42,3 +43,5 @@ poetry run jupyter notebook demo.ipynb
 ## App
 
 You can visualise the results of the emulator here: [https://alexander-mead.github.io./universe.html](https://alexander-mead.github.io./universe.html)
+
+![image](https://github.com/digiLab-ai/CosmologicalStructure/assets/9140961/71fed753-8a2a-43a9-9642-839557517c05)
