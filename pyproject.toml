@@ -6,14 +6,15 @@ authors = ["Alexander Mead <alexander@digilab.co.uk>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.12"
-twinlab = "^1.1.1"
-
-[tool.poetry.group.dev.dependencies]
+python = ">=3.10,<3.12"
 jupyter = "^1.0.0"
+twinlab = "^1.2"
 numpy = "^1.24.2"
 matplotlib = "^3.7.1"
 pandas = "^1.0.0"
+ipykernel = "^6.25.0"
+
+[tool.poetry.group.dev.dependencies]
 hmcode = "^1.0.1"
 
 [build-system]
